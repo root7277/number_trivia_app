@@ -47,16 +47,11 @@ class _SearchPageState extends State<SearchPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            numberModel == null
-                                ? ''
-                                : numberModel!.number.toString(),
-                            style: const TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                            numberModel == null ? '' : numberModel!.number.toString(),
+                            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            numberModel == null
-                                ? 'Start Searching'
-                                : numberModel!.text,
+                            numberModel == null ? 'Start Searching' : numberModel!.text,
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -74,9 +69,7 @@ class _SearchPageState extends State<SearchPage> {
                         border: OutlineInputBorder(),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -93,8 +86,8 @@ class _SearchPageState extends State<SearchPage> {
                               color: Colors.green,
                               height: MediaQuery.of(context).size.height * 0.05,
                               width: MediaQuery.of(context).size.width * 0.43,
-                              child: Center(
-                                  child: const Text(
+                              child: const Center(
+                                  child: Text(
                                 'Search',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -112,12 +105,10 @@ class _SearchPageState extends State<SearchPage> {
                               color: Colors.grey,
                               height: MediaQuery.of(context).size.height * 0.05,
                               width: MediaQuery.of(context).size.width * 0.43,
-                              child: Center(
-                                  child: const Text(
+                              child: const Center(
+                                  child: Text(
                                 'Get random trivia',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
+                                style: TextStyle(color: Colors.black),
                               ))),
                         ),
                       ],
