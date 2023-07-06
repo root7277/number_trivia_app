@@ -14,6 +14,7 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController controller = TextEditingController();
 
   NumberModel? numberModel;
+  Future<NumberModel>? func;
 
   @override
   Widget build(BuildContext context) {
@@ -27,20 +28,35 @@ class _SearchPageState extends State<SearchPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    numberModel == null ? '' : numberModel!.number.toString(),
-                    style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    numberModel == null ? 'Start Searching' : numberModel!.text,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              )),
+              FutureBuilder(
+                  future: func,
+                  builder: (context, snapshot) {
+                    print(snapshot.connectionState);
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Builder(builder: (context) {
+                        return const CircularProgressIndicator();
+                      });
+                    }
+                    if (snapshot.hasData) {
+                      numberModel = snapshot.data;
+                    }
+
+                    return Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            numberModel == null ? '' : numberModel!.number.toString(),
+                            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            numberModel == null ? 'Start Searching' : numberModel!.text,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
               Expanded(
                 child: Column(
                   children: [
@@ -54,19 +70,20 @@ class _SearchPageState extends State<SearchPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
-                            onPressed: () async {
+                            onPressed: () {
                               int n = int.parse(controller.text);
-                              NumberModel son = await getNumber(n);
+                              Future<NumberModel> son = getNumber(n);
                               setState(() {
-                                numberModel = son;
+                                // numberModel = son;
+                                func = son;
                               });
                             },
                             child: const Text('Search')),
                         TextButton(
-                            onPressed: () async {
-                              NumberModel son = await getRandomNumber();
+                            onPressed: () {
+                              Future<NumberModel> son = getRandomNumber();
                               setState(() {
-                                numberModel = son;
+                                func = son;
                               });
                             },
                             child: const Text('Get random trivia')),
