@@ -21,6 +21,7 @@ class _SearchPageState extends State<SearchPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.green,
           title: const Text('Number Trivia'),
         ),
         body: Padding(
@@ -46,11 +47,16 @@ class _SearchPageState extends State<SearchPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            numberModel == null ? '' : numberModel!.number.toString(),
-                            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                            numberModel == null
+                                ? ''
+                                : numberModel!.number.toString(),
+                            style: const TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            numberModel == null ? 'Start Searching' : numberModel!.text,
+                            numberModel == null
+                                ? 'Start Searching'
+                                : numberModel!.text,
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -61,32 +67,59 @@ class _SearchPageState extends State<SearchPage> {
                 child: Column(
                   children: [
                     TextField(
+                      keyboardType: TextInputType.number,
+                      maxLength: 19,
                       controller: controller,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
-                            onPressed: () {
-                              int n = int.parse(controller.text);
-                              Future<NumberModel> son = getNumber(n);
-                              setState(() {
-                                // numberModel = son;
-                                func = son;
-                              });
-                            },
-                            child: const Text('Search')),
+                          onPressed: () {
+                            int n = int.parse(controller.text);
+                            Future<NumberModel> son = getNumber(n);
+                            setState(() {
+                              // numberModel = son;
+                              func = son;
+                            });
+                          },
+                          child: Container(
+                              color: Colors.green,
+                              height: MediaQuery.of(context).size.height * 0.05,
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              child: Center(
+                                  child: const Text(
+                                'Search',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ))),
+                        ),
                         TextButton(
-                            onPressed: () {
-                              Future<NumberModel> son = getRandomNumber();
-                              setState(() {
-                                func = son;
-                              });
-                            },
-                            child: const Text('Get random trivia')),
+                          onPressed: () {
+                            Future<NumberModel> son = getRandomNumber();
+                            setState(() {
+                              func = son;
+                            });
+                          },
+                          child: Container(
+                              color: Colors.grey,
+                              height: MediaQuery.of(context).size.height * 0.05,
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              child: Center(
+                                  child: const Text(
+                                'Get random trivia',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ))),
+                        ),
                       ],
                     )
                   ],
