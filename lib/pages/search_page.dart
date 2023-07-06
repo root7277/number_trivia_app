@@ -25,7 +25,7 @@ class _SearchPageState extends State<SearchPage> {
           title: const Text('Number Trivia'),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
